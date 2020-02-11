@@ -24,19 +24,50 @@ title.addEventListener('change', (e) => {
     }
 });
 
-// this function hides or shows color selection options based on the design option chosen
+// this function hides all the color options
+function hideColors() {
+    $('#color').children().hide();
+}
+
+// this function displays the "select a theme" option in the color dropdown
+function selectTheme() {
+let option = document.createElement("option");
+option.value = 'selecttheme';
+option.text = 'Please select a theme';
+colorSelection.appendChild(option);
+option.setAttribute('selected', 'selected');
+}
+
+//declares functions to hide the colors and display "select a theme"
+selectTheme();
+hideColors();
+    
+// this addEventListern hides or shows color selection options based on the design option chosen
 design.addEventListener('change', (e) => {
     if (e.target.value === 'js puns') {
-        $('#color').children().hide();
-        $('#color option[value="cornflowerblue"]').show().select();
+        hideColors();
+        $('#color option[value="cornflowerblue"]').show();
         $('#color option[value="darkslategrey"]').show();
         $('#color option[value="gold"]').show();
+        $('#color').prop('selectedIndex', 0);
     } if (e.target.value === 'heart js') {
-        $('#color').children().hide();
-        $('#color option[value="tomato"]').show().select();
+        hideColors();
+        $('#color option[value="tomato"]').show();
         $('#color option[value="steelblue"]').show();
         $('#color option[value="dimgrey"]').show();
-    }
+        $('#color').prop('selectedIndex', 3);
+    } else {
+        $('#color option[value="tomato"]').removeAttribute('selected');
+        $('#color option[value="steelblue"]').removeAttribute('selected');
+        $('#color option[value="dimgrey"]').removeAttribute('selected');
+        $('#color option[value="cornflowerblue"]').removeAttribute('selected');
+        $('#color option[value="darkslategrey"]').removeAttribute('selected');
+        $('#color option[value="gold"]').removeAttribute('selected');
+        hideColors();
+        selectTheme();        
+    }       
 });
+
+
 
 
