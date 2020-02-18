@@ -14,7 +14,6 @@ window.onload = function() {
     otherTitle.style.display = 'none';
 };
 
-
 // this shows the other title text box when 'other' has been selected from the title menu
 title.addEventListener('change', (e) => {
     if (e.target.value === 'other') {
@@ -39,18 +38,25 @@ option.setAttribute('selected', 'selected');
 }
 
 //declares functions to hide the colors and display "select a theme"
-selectTheme();
 hideColors();
+selectTheme();
+
+// Hides the "select theme" from the design menu
+function hideSelectTheme() {
+    $('#design option').eq(0).attr('disabled', 'hidden', true).hide();
+}
     
 // this addEventListern hides or shows color selection options based on the design option chosen
 design.addEventListener('change', (e) => {
     if (e.target.value === 'js puns') {
+        hideSelectTheme()
         hideColors();
         $('#color option[value="cornflowerblue"]').show();
         $('#color option[value="darkslategrey"]').show();
         $('#color option[value="gold"]').show();
         $('#color').prop('selectedIndex', 0);
     } if (e.target.value === 'heart js') {
+        hideSelectTheme()
         hideColors();
         $('#color option[value="tomato"]').show();
         $('#color option[value="steelblue"]').show();
@@ -64,10 +70,25 @@ design.addEventListener('change', (e) => {
         $('#color option[value="darkslategrey"]').removeAttribute('selected');
         $('#color option[value="gold"]').removeAttribute('selected');
         hideColors();
-        selectTheme();        
     }       
 });
 
 
+
+const activities = document.getElementsByClassName("activities");
+
+$(activities).change(function (event) {
+    const eventTime = event.target.getAttribute('data-day-and-time');
+    console.log(eventTime);
+    for (let i = 0; i < activities.length; i++) {
+      if ( event.target.getAttribute('data-day-and-time') === eventTime ) {
+        if ($(event.target).is(":checked")) {
+        $(event).attr("disabled", true);
+        } else {
+        $(event).removeAttr("disabled");
+        }
+      }
+    }
+  });
 
 
