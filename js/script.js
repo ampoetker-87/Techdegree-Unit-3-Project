@@ -76,19 +76,39 @@ design.addEventListener('change', (e) => {
 
 
 const activities = document.getElementsByClassName("activities");
+let totalPrice = 0;
+
 
 $(activities).change(function (event) {
     const eventTime = event.target.getAttribute('data-day-and-time');
-    console.log(eventTime);
+    const totalPriceDiv = $('.activities').append('Total Price: $');
+    // console.log(eventTime);
+    // console.log(eventCost);
+    // console.log(totalPrice);
     for (let i = 0; i < activities.length; i++) {
       if ( event.target.getAttribute('data-day-and-time') === eventTime ) {
         if ($(event.target).is(":checked")) {
-        $(event).attr("disabled", true);
+            $(event).attr("disabled", true);
         } else {
-        $(event).removeAttr("disabled");
+            $(event).removeAttr("disabled");
         }
       }
+
     }
+    for (let i = 0; i < activities.length; i++) {
+        if ($(event.target).is(":checked")) {
+            totalPrice += parseInt(event.target.getAttribute('data-cost'));
+            $('.activities').append(totalPriceDiv);
+            $(totalPriceDiv).append(totalPrice);
+        } else {
+            totalPrice -= parseInt(event.target.getAttribute('data-cost'));
+            $('.activities').append(totalPriceDiv);
+            $('totalPriceDiv:last-child').empty();
+            $(totalPriceDiv).append(totalPrice);
+        }
+    
+  }
+  
   });
 
 
