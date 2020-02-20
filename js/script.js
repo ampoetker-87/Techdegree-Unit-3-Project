@@ -77,38 +77,36 @@ design.addEventListener('change', (e) => {
 
 const activities = document.getElementsByClassName("activities");
 let totalPrice = 0;
-
+const totalPriceDiv = document.createElement('div');
+let textContent = totalPriceDiv.textContent = 'Total Price: $' + totalPrice + '.00';
+$(activities).append(totalPriceDiv);
 
 $(activities).change(function (event) {
-    const eventTime = event.target.getAttribute('data-day-and-time');
-    const totalPriceDiv = $('.activities').append('Total Price: $');
-    // console.log(eventTime);
-    // console.log(eventCost);
-    // console.log(totalPrice);
+
     for (let i = 0; i < activities.length; i++) {
-      if ( event.target.getAttribute('data-day-and-time') === eventTime ) {
+        let eventTime = event.target.getAttribute('data-day-and-time');
         if ($(event.target).is(":checked")) {
-            $(event).attr("disabled", true);
+            console.log('is checked');
+            console.log(eventTime);
+        if ((activities[i]).getAttribute('data-day-and-time') === eventTime) {
+            console.log('is the same');
+            $(activities[i]).prop('disabled', 'hidden');
         } else {
-            $(event).removeAttr("disabled");
+            $(activities[i]).removeAttr('disabled', 'hidden');
         }
-      }
+        }
 
     }
     for (let i = 0; i < activities.length; i++) {
         if ($(event.target).is(":checked")) {
             totalPrice += parseInt(event.target.getAttribute('data-cost'));
-            $('.activities').append(totalPriceDiv);
-            $(totalPriceDiv).append(totalPrice);
+            totalPriceDiv.textContent = 'Total Price: $' + totalPrice + '.00';
         } else {
             totalPrice -= parseInt(event.target.getAttribute('data-cost'));
-            $('.activities').append(totalPriceDiv);
-            $('totalPriceDiv:last-child').empty();
-            $(totalPriceDiv).append(totalPrice);
+            totalPriceDiv.textContent = 'Total Price: $' + totalPrice + '.00';
         }
     
-  }
-  
+    }
   });
 
 
