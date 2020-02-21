@@ -74,28 +74,28 @@ design.addEventListener('change', (e) => {
 });
 
 
-
+// Variables for storing the activities section and the total price div and calculation
 const activities = document.getElementsByClassName("activities");
+const activityCheckboxes = $('.activities input:checkbox');
 let totalPrice = 0;
 const totalPriceDiv = document.createElement('div');
 let textContent = totalPriceDiv.textContent = 'Total Price: $' + totalPrice + '.00';
 $(activities).append(totalPriceDiv);
 
-$(activities).change(function (event) {
+$(activityCheckboxes).change(function (event) {
 
-    for (let i = 0; i < activities.length; i++) {
+    for (let i = 0; i < activityCheckboxes.length; i++) {
         let eventTime = event.target.getAttribute('data-day-and-time');
+        let conflictEvent = activityCheckboxes[i].getAttribute('data-day-and-time')
+        let eventName = activityCheckboxes[i].getAttribute('name');
+        let clickedEventName = event.target.getAttribute('name');
         if ($(event.target).is(":checked")) {
-            console.log('is checked');
-            console.log(eventTime);
-        if ((activities[i]).getAttribute('data-day-and-time') === eventTime) {
-            console.log('is the same');
-            $(activities[i]).prop('disabled', 'hidden');
-        } else {
-            $(activities[i]).removeAttr('disabled', 'hidden');
+            if (conflictEvent === eventTime && clickedEventName !== eventName) {
+                $(activityCheckboxes[i]).prop('disabled', true);
+            } else {
+                $(activityCheckboxes[i]).prop('disabled', false);
+            }
         }
-        }
-
     }
     for (let i = 0; i < activities.length; i++) {
         if ($(event.target).is(":checked")) {
@@ -105,7 +105,6 @@ $(activities).change(function (event) {
             totalPrice -= parseInt(event.target.getAttribute('data-cost'));
             totalPriceDiv.textContent = 'Total Price: $' + totalPrice + '.00';
         }
-    
     }
   });
 
