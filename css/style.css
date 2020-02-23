@@ -78,6 +78,7 @@ label {
 	color: #000;
 	display: block;
 	margin-bottom: .5em;
+	margin-top: 1em;
 }
 
 input,
@@ -127,6 +128,7 @@ option {
 	font-family: 'roboto', sans-serif;
 }
 
+
 /* ================================= 
   Page Styles
 ==================================== */
@@ -164,6 +166,20 @@ option {
 	padding: 5px;
 	background: rgba(255, 255, 255, 0.1);
 	border-radius: 4px;
+}
+
+.total-price {
+	color: black;
+	font-weight: 700;
+	margin-bottom: 1.125em;
+	font-style: bold;
+
+}
+
+.error {
+	color: red;
+	font-size: 0.75em;
+	margin-top: -0.75em;
 }
 
 /* ================================= 
