@@ -3,6 +3,7 @@
 ==================================== */
 
 @import url('https://fonts.googleapis.com/css?family=Nunito|Roboto+Mono');
+@import url('https://fonts.googleapis.com/css?family=Arvo&display=swap');
 
 * {
   box-sizing: border-box;
@@ -11,13 +12,14 @@
 body,
 input,
 button {
-	font-family: 'Nunito', sans-serif;
+	/* font-family: 'Nunito', sans-serif; */
+	font-family: 'Arvo', sans-serif;
 }
 
 body {
   font: 1em/1.5;
-  color: rgba(6, 49, 68, 0.9);
-	background: #CDE0FB;
+  color: #05d8e3;
+	/* background: #CDE0FB; */
 }
 
 header {
@@ -25,13 +27,23 @@ header {
 }
 
 h1 {
+	font-family: 'Arvo', sans-serif;
+	color: #fff;
 	font-size: 2.5em;
-	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.85);
-	margin: 0;
+	text-shadow: 0 1px 0 rgba(49, 49, 49, 0.85);
+	margin-top: 10px;
+	background-color: yellow;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 a {
   text-decoration: none;
+}
+
+span {
+	font-size: 0.75em;
+	margin-bottom: 0.5em;
 }
 
 /* ================================= 
@@ -40,8 +52,8 @@ a {
 
 form {
 	padding: .875em 1.875em 1.875em;
-	background: #9BBEEF;
-	border: 2px solid rgba(8, 63, 87, 0.6);
+	background: yellow;
+	border: 2px solid rgb(253, 253, 253);
 	border-radius: 3px;
 }
 
@@ -64,7 +76,7 @@ button {
 legend {
 	font-weight: bold;
 	padding-top: .5em;
-	border-top: 2px solid rgba(8, 63, 87, 0.6);
+	border-top: 2px solid rgb(246, 248, 248);
 	margin-bottom: 1.125em;
 }
 
@@ -90,15 +102,15 @@ input {
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
-	background: #e9f6fb;
-	border: 2px solid rgb(111, 157, 220);
+	background: #ebfeff;
+	border: 2px solid rgb(125, 244, 250);
 	border-radius: 3px;
 	outline: none;
 }
 
 input:focus {
 	background: #fff;
-	border-color: #5e97b0;
+	border-color: #05d8e3;
 	transition: border-color .4s, background-color .4s;
 }
 
@@ -110,16 +122,16 @@ input[type="radio"] {
 button {
 	color: #fff;
 	padding: .55em 1.25em;
-	background: #083f57;
+	background: #05d8e3;
 	margin: 1.25em 0 .5em;
 	cursor: pointer;
-	border: 2px solid black;
+	border: 2px solid white;
 	border-radius: 4px;
 	transition: all 0.5s;
 }
 
 button:hover {
-	background: #6F9DDC;
+	background: rgb(125, 244, 250);
 }
 
 input, 
@@ -170,8 +182,10 @@ option {
 
 .total-price {
 	color: black;
+	font-size: 1.25em;
 	font-weight: 700;
 	margin-bottom: 1.125em;
+	margin-top: 1.5em;
 	font-style: bold;
 
 }
@@ -181,6 +195,20 @@ option {
 	font-size: 0.75em;
 	margin-top: -0.75em;
 }
+
+.parallax {
+	/* The image used */
+	background-image: url("https://lh3.googleusercontent.com/jaJesKWGPLTaP2ZFqp0mJMPmHKF8MhCJVH4Q6emuQf6TmfIL2QR_G_AStIjCywpspjyP9047vhIm40sSyy2Em3q316KCiW_Xbb1O6_MfNUtTZviWtEzktLCqEocYaydbjdv0U_cIwKcLyKIXWMXDchLQc25xbTKObj-vIzBqbLklrGjxM-uAj11dKOi1-WPKXwzA6Qmdcx6sFBE0WTDw3pZ2KMp9cWdzxArsYBtOzmE0-PzpbLE0Kz6aYHRIJwT2VKBMoTIfK8vwfM5HwCFGvbcfcndSJ9VZCGT-PfTAv1Kgdx6td0qamoufJmNHqe1jA5X-hDAAHDGdjbcpj_Xm76-pDXSxHsWsexjc_zUHqb7uEHXzDfLsWPo8Q26vfmqN77jZufLk-IXlF_XvisbnaVNKPhNFWYw5BYQB8Olnk8SuKTRCW9f_7ubjjxLHfDuTXofgo3wbSeAwmPnpg5LPQYvKpu5htuK82ijWAADHMEsfRo0Eff2qsI0RgJmWoNMD05kaTVp5bG-hTUQujhuxw_U-SGwDBN9-RIwiIJfEY_acuDHSmEK3sqc7RokPCFLEeev7GF_5wh5tSYEBNV0ib-5vkazTma27bcyJyv9DPwH_ZeSE_wftlzfE6HOwdGT9QZ-Ck3ydPLIdJNN4UeQPWl_JDMVFK77jINqB38nE76PgUkkymbyXDyXD=w944-h629-no");
+  
+	/* Set a specific height */
+	height: 100%;
+  
+	/* Create the parallax scrolling effect */
+	background-attachment: fixed;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+  }
 
 /* ================================= 
   Helper Classes

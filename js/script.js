@@ -1,5 +1,4 @@
-// places the focus on the name field on page load
-document.getElementById("name").focus();
+
 
 // Variables for the title dropdown and the other title field
 const title = document.getElementById("title");
@@ -9,12 +8,31 @@ const otherTitle = document.getElementById("other-title");
 const design = document.getElementById('design');
 const colorSelection = document.getElementById('color');
 
-// This function hides the other title text box on page load
+// Variables for storing the activities section and the total price div and calculation
+const activities = document.getElementsByClassName("activities");
+const activityCheckboxes = $('.activities input:checkbox');
+let totalPrice = 0;
+const totalPriceDiv = document.createElement('div');
+totalPriceDiv.className = "total-price";
+let textContent = totalPriceDiv.textContent = 'Total Price: $' + totalPrice + '.00';
+
+// Form field variables
+const form = document.querySelector("form");
+const name = document.querySelector("#name");
+const email = document.querySelector("#mail");
+const creditcard = document.querySelector("#cc-num");
+const zipcode = document.querySelector("#zip");
+const cvv = document.querySelector("#cvv");
+
+// places the focus on the name field on page load
+document.getElementById("name").focus();
+
+// Hide the 'other title' text box on page load
 window.onload = function() {
     otherTitle.style.display = 'none';
 };
 
-// this shows the other title text box when 'other' has been selected from the title menu
+// Shows the other title text box when 'other' has been selected from the title menu
 title.addEventListener('change', (e) => {
     if (e.target.value === 'other') {
         otherTitle.style.display = 'block';
@@ -23,12 +41,12 @@ title.addEventListener('change', (e) => {
     }
 });
 
-// this function hides all the color options
+// Hide all the color options
 function hideColors() {
     $('#color').children().hide();
 }
 
-// this function displays the "select a theme" option in the color dropdown
+// Display the "select a theme" option in the color dropdown
 function selectTheme() {
 let option = document.createElement("option");
 option.value = 'selecttheme';
@@ -60,7 +78,7 @@ design.addEventListener('change', (e) => {
         $('#color option[value="darkslategrey"]').show();
         $('#color option[value="gold"]').show();
         $('#color').prop('selectedIndex', 0);
-    } if (e.target.value === 'heart js') {
+    } else if (e.target.value === 'heart js') {
         $(colorSelectionDiv).show();
         hideColors();
         $('#color option[value="tomato"]').show();
@@ -79,14 +97,7 @@ design.addEventListener('change', (e) => {
     }       
 });
 
-
-// Variables for storing the activities section and the total price div and calculation
-const activities = document.getElementsByClassName("activities");
-const activityCheckboxes = $('.activities input:checkbox');
-let totalPrice = 0;
-const totalPriceDiv = document.createElement('div');
-totalPriceDiv.className = "total-price";
-let textContent = totalPriceDiv.textContent = 'Total Price: $' + totalPrice + '.00';
+// Append the total price to the activities section
 $(activities).append(totalPriceDiv);
 
 // When checkboxes are clicked their day and time data is checked against other events
@@ -125,6 +136,7 @@ const creditCardDiv = document.getElementById('credit-card');
 const paypalDiv = document.getElementById('paypal');
 const bitcoinDiv = document.getElementById('bitcoin');
 
+// Functions for hiding all payment options
 function hideSelectPayment() {
     $('#payment option').eq(0).attr('disabled', 'hidden', true).hide();
 }
@@ -138,11 +150,14 @@ function hideBitcoin() {
     $(bitcoinDiv).hide();
 }
 
+// Hide paypal and bitcoin payment options at load
 hidePaypal();
 hideBitcoin();
 
+// Have the credit card payment option selected at page load
 $('#payment').prop('selectedIndex', 1);
 
+// Reveal the corresponding payment options based on the selecion from payment dropdown
 payment.addEventListener('change', (e) => {
     hideSelectPayment();
     if (e.target.value === 'credit card') {
@@ -161,19 +176,18 @@ payment.addEventListener('change', (e) => {
 });
 
 
-// Form field variables
-const form = document.querySelector("form");
-const name = document.querySelector("#name");
-const email = document.querySelector("#mail");
-const creditcard = document.querySelector("#cc-num");
-const zipcode = document.querySelector("#zip");
-const cvv = document.querySelector("#cvv");
+// Form validation variables/regex
+let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+let creditcardFormat = /4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11}/;
+let zipcodeFormat = /^[0-9]{5}$/;
+let cvvFormat = /^[0-9]{3}$/;
+let notEmail = /^((?!@).)*$/;
+
 
 // Name validation
 const nameValidator = () => {
     let nameValue = name.value;
-    console.log(nameValue);
-    if (name.value.length > 0) {
+    if (nameValue.length > 0) {
         return (true);
     } else {
         return (false);
@@ -183,15 +197,23 @@ const nameValidator = () => {
 
 // Email validation
 const emailValidator = () => {
-    let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     let emailValue = email.value;
-    console.log(emailValue);
     if (emailValue.match(mailformat)) {
         return (true)
     } else {
         return (false)
     }
 };
+
+// Email not valid
+const notEmailValidator = () => {
+    let emailValue = email.value;
+    if (emailValue.match(mailformat)) {
+        return (true);
+    } else {
+        return (false);
+    }
+}
 
 // Activities validation
 const activitiesValidator = () => {
@@ -207,7 +229,6 @@ const activitiesValidator = () => {
 
 // Credit card validation
 const creditcardValidator = () => {
-    let creditcardFormat = /4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11}/;
     let creditcardValue = creditcard.value;
     if (creditcardValue.match(creditcardFormat)) {
         return (true);
@@ -216,9 +237,18 @@ const creditcardValidator = () => {
     }
 };
 
+// Partial credit card - exceeds expectations - will ask for a number between 13 and 16 digits if submitted outside that range
+const partialccValidator = () => {
+    let creditcardValue = creditcard.value;
+    if ((!creditcardValue.match(creditcardFormat)) && (creditcardValue > 0)) {
+        return (true);
+    } else {
+        return (false);
+    }
+};
+
 // zipcode validation
 const zipcodeValidator = () => {
-    let zipcodeFormat = /^[0-9]{5}$/;
     let zipcodeValue = zipcode.value;
     if (zipcodeValue.match(zipcodeFormat)) {
         return (true);
@@ -229,7 +259,6 @@ const zipcodeValidator = () => {
 
 // CVV validation
 const cvvValidator = () => {
-    let cvvFormat = /^[0-9]{3}$/;
     let cvvValue = cvv.value;
     if (cvvValue.match(cvvFormat)) {
         return (true);
@@ -239,78 +268,184 @@ const cvvValidator = () => {
 };
 
 
+// variables for storing error message spans
+const nameError = document.getElementsByClassName('name-error')
+const emailError = document.getElementsByClassName('email-error');
+const notEmailError = document.getElementsByClassName('not-email-error');
+const activitiesError = document.getElementsByClassName('activities-error');
+const ccError = document.getElementsByClassName('cc-error');
+const ccErrorAdd = document.getElementsByClassName('cc-error-add');
+const zipcodeError = document.getElementsByClassName('zipcode-error');
+const cvvError = document.getElementsByClassName('cvv-error');
+
+// hide all error message spans
+$(nameError).hide();
+$(emailError).hide();
+$(notEmailError).hide();
+$(activitiesError).hide();
+$(ccError).hide();
+$(ccErrorAdd).hide();
+$(zipcodeError).hide();
+$(cvvError).hide();
+
 // Form submit and validation error messages
 form.addEventListener('submit', (e) => {
     if (!nameValidator()) {
-        if ($('.name-error').length > 0) {
-            $(".name-error").remove();
-          }
         e.preventDefault();
         name.style.borderColor = "red";
-        $(name).after("<span class='name-error' style='color:red;'>Please enter your name</span>");
+        $(nameError).fadeIn();
     } else {
         name.removeAttribute("style");
-        $(".name-error").remove();
+        $(nameError).fadeOut();
     }
     if (!emailValidator()) {
-        if ($('.email-error').length > 0) {
-            $('.email-error').remove();
-            } 
         e.preventDefault();
         email.style.borderColor = "red";
-        $(email).after("<span class='email-error' style='color:red;'>Please enter your email</span>");
+        $(emailError).fadeIn();
     } else {
         email.removeAttribute("style");
-        $(".email-error").remove();
+        $(emailError).fadeOut();
+        $(notEmailError).fadeOut();
+    }
+    if ((!emailValidator()) && email.value.length > 0) {
+        e.preventDefault();
+        email.style.borderColor = "red";
+        $(emailError).fadeOut();
+        $(notEmailError).fadeIn();
+    } else {
+        $(notEmailError).fadeOut();
     }
     if (!activitiesValidator()) {
-        if ($('.activities-error').length > 0) {
-            $('.activities-error').remove();
-            } 
+        $(activitiesError).fadeIn();
         e.preventDefault();
-        $(activities).after("<span class='activities-error' style='color:red;'>Please select at least one activity</span>");
     } else {
-        $(".activities-error").remove();
+        $(activitiesError).fadeOut();
     }
 
     if (payment.value === 'credit card') {
         if (!creditcardValidator()) {
-            if ($('.cc-error').length > 0) {
-                $('.cc-error').remove();
-                } 
+                if (partialccValidator()) {
+                    $(ccErrorAdd).show();
+                    e.preventDefault();
+                    creditcard.style.borderColor = "red";
+                } else {
+                    creditcard.removeAttribute("style");
+                    $(ccErrorAdd).fadeOut();
+                }
             e.preventDefault();
             creditcard.style.borderColor = "red";
-            $(creditcard).after("<span class='cc-error' style='color:red;'>Please enter your credit card number</span>");
+            $(ccError).fadeIn();
         } else {
             creditcard.removeAttribute("style");
-            $(".cc-error").remove();
+            $(ccError).fadeOut();
         }
+        
         if (!zipcodeValidator()) {
-            if ($('.zipcode-error').length > 0) {
-                $('.zipcode-error').remove();
-                } 
             e.preventDefault();
             zipcode.style.borderColor = "red";
-            $(zipcode).after("<span class='zipcode-error' style='color:red;'>Please enter your billing zipcode</span>");
+            $(zipcodeError).fadeIn();
         } else {
             zipcode.removeAttribute("style");
-            $(".zipcode-error").remove();
+            $(zipcodeError).fadeOut();
         }
         if (!cvvValidator()) {
-            if ($('.cvv-error').length > 0) {
-                $('.cvv-error').remove();
-                } 
             e.preventDefault();
             cvv.style.borderColor = "red";
-            $(cvv).after("<span class='cvv-error' style='color:red;'>Please enter your CVV</span>");
+            $(cvvError).fadeIn();
         } else {
             cvv.removeAttribute("style");
-            $(".cvv-error").remove();
+            $(cvvError).fadeOut();
         }
     };
 });
 
 
+// Form inline validation - exceeds expectations work
+$(name).on('input', function () {
+    if (name.value.length > 0) {
+    $(nameError).fadeOut();
+      $(name).css("borderColor", '');
+    }
+});
 
+$(email).on('input', function () {
+    if (email.value.length > 0) {
+        $(email).css("borderColor", 'red');
+        $(emailError).hide();
+        $(notEmailError).fadeIn(0);
+    } else {
+    $(emailError).show();
+    $(notEmailError).hide();
+    $(email).css("borderColor", '');
+  }
+});
+
+$(email).on('input', function () {
+    if (!$(email).val().match(mailformat)) {
+        $(email).css("borderColor", 'red');
+    } else {
+    $(emailError).fadeOut();
+    $(notEmailError).fadeOut();
+    $(email).css("borderColor", '');
+  }
+});
+
+$(activities).on('input', function () {
+    if ($(activityCheckboxes).is(":checked")) {
+    $(activitiesError).fadeOut();
+      $(email).css("borderColor", '');
+    } else {
+        $(activitiesError).fadeIn();
+    }
+});
+
+$(creditcard).on('input', function () {
+    if (!$(creditcard).val().match(creditcardFormat)) {
+    $(ccError).fadeIn();
+    $(creditcard).css("borderColor", 'red');
+    } else {
+    $(ccError).fadeOut();
+    $(ccErrorAdd).fadeOut();
+    $(creditcard).css("borderColor", '');
+  }
+});
+
+$(creditcard).on('input', function () {
+    if ((!$(creditcard).val().match(creditcardFormat)) && (creditcardValue > 0)) {
+        $(ccErrorAdd).fadeIn();
+    } else {
+        $(ccErrorAdd).fadeOut();
+    }
+});
+
+$(zipcode).on('input', function () {
+    if (!$(zipcode).val().match(zipcodeFormat)) {
+    $(zipcodeError).fadeIn();
+    $(zipcode).css("borderColor", 'red');
+    } else {
+    $(zipcodeError).fadeOut();
+    $(zipcode).css("borderColor", '');
+  }
+});
+
+$(zipcode).on('input', function () {
+    if (!$(cvv).val().match(cvvFormat)) {
+    $(cvvError).fadeIn();
+    $(cvv).css("borderColor", 'red');
+    } else {
+    $(cvvError).fadeOut();
+    $(cvv).css("borderColor", '');
+  }
+});
+
+$(cvv).on('input', function () {
+    if (!$(cvv).val().match(cvvFormat)) {
+    $(cvvError).fadeIn();
+    $(cvv).css("borderColor", 'red');
+    } else {
+    $(cvvError).fadeOut();
+    $(cvv).css("borderColor", '');
+  }
+});
 
 
