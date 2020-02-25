@@ -178,7 +178,7 @@ payment.addEventListener('change', (e) => {
 
 // Form validation variables/regex
 let mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-let creditcardFormat = /4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|6(?:011|5[0-9]{2})[0-9]{12}|(?:2131|1800|35\d{3})\d{11}/;
+let creditcardFormat = /^[0-9]{13,16}$/;
 let zipcodeFormat = /^[0-9]{5}$/;
 let cvvFormat = /^[0-9]{3}$/;
 let notEmail = /^((?!@).)*$/;
